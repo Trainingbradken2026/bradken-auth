@@ -820,11 +820,13 @@ function renderPanel(){
   const ws=Object.values(workers);
   const tot=ws.length;
   const auth=ws.filter(w=>Object.values(w.courses).some(c=>c.status==='Autorizado')).length;
-  const conVenc=ws.filter(w=>Object.values(w.courses).some(c=>c.status==='Vencido'||c.status==='Regularizar')).length;
+  const conVenc=ws.filter(w=>Object.values(w.courses).some(c=>c.status==='Vencido')).length;
+  const conReg=ws.filter(w=>Object.values(w.courses).some(c=>c.status==='Regularizar'||c.status==='Coordinar')).length;
   document.getElementById('stats-row').innerHTML=`
     <div class="stat"><div class="stat-n">${tot}</div><div class="stat-l">Trabajadores</div></div>
     <div class="stat"><div class="stat-n gn">${auth}</div><div class="stat-l">Con autorización vigente</div></div>
-    <div class="stat"><div class="stat-n rd">${conVenc}</div><div class="stat-l">Con cursos vencidos</div></div>`;
+    <div class="stat"><div class="stat-n rd">${conVenc}</div><div class="stat-l">Con cursos vencidos</div></div>
+    <div class="stat"><div class="stat-n am">${conReg}</div><div class="stat-l">Por regularizar</div></div>`;
   const cursos=getCursos();
   let html='';
   cursos.forEach(c=>{
